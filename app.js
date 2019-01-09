@@ -1,86 +1,107 @@
 // Rover Object Goes Here
 var rover = {
-  direction: "N",
+  direction: ("N", "E", "S", "w"),
   x: 0,
   y: 0,
   travelLog: []
 };
 
-var roverPosition = (x, y, currentDirection);
-var roverX = x;
-var roverY = y;
-var currentDirection = direction;
+
 // ======================
 
 // ======================
 var grid = [ 
-  [null,null,null,null,null,null,null,null,null,null,],
-  [null,null,null,null,null,null,null,null,null,null,],
-  [null,null,null,null,null,null,null,null,null,null,],
-  [null,null,null,null,null,null,null,null,null,null,],
-  [null,null,null,null,null,null,null,null,null,null,],
-  [null,null,null,null,null,null,null,null,null,null,],
-  [null,null,null,null,null,null,null,null,null,null,],
-  [null,null,null,null,null,null,null,null,null,null,],
-  [null,null,null,null,null,null,null,null,null,null,],
-  [null,null,null,null,null,null,null,null,null,null,],
+  [rover,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null,null,null]
+  
 ];
 
-
-
 function turnLeft(rover){
-  switch (currentDirection) {
-    case "N": currentDirection = "facing West was called"
+  switch (rover.direction) {
+    case "N": 
+    console.log("facing W")
     break;
-    case "E": currentDirection = "facing North was called"
+    case "E": 
+    console.log("facing N")
     break;
-    case "S": currentDirection = "facing East was called"
+    case "S": 
+    console.log("facing E")
     break;
-    case "W": currentDirection = "facing South was called"
+    case "W": 
+    console.log("facing S")
     break;
   }
-  console.log("turnLeft was called!" + currentDirection);
+  console.log("Turn left was called. Rover is now facing: [' + rover.x + ',' + rover.y']");
 }
 
 function turnRight(rover){
-  switch (currentDirection) {
-    case "N": currentDirection = "facing East was called"
+  switch (rover.direction) {
+    case "N": 
+    console.log("facing E")
     break;
-    case "E": currentDirection = "facing South was called"
+    case "E":
+    console.log("facing S")
     break;
-    case "S": currentDirection = "facing West was called"
+    case "S": 
+    console.log("facing W")
     break;
-    case "W": currentDirection = "facing North was called"
+    case "W": 
+    console.log("facing N")
     break;
   }
-  console.log("turnRight was called!" + currentDirection);
+  console.log("Turn right was called. Rover is now facing: [' + rover.x + ',' + rover.y']");
 }
 
-function moveForward(rover, currentDirection){
-  switch(currentDirection) {
-    case "N": roverY = roverY-1
+function moveForward(rover, grid){
+  switch(rover.direction) {
+    case "N": rover.y--;
     break;
-    case "E": roverX = roverX+1
+    case "E": rover.x++;
     break;
-    case "S": roverY = roverY+1
+    case "S": rover.y++;
     break;
-    case "W": roverX = roverX-1
+    case "W": rover.x--;
     break;
   }    
-   
-  console.log("moveForward was called");
+  console.log("Move forward was called. Rover is now facing: [' + rover.x + ',' + rover.y']");
 }
 
-function commands(rover) {
-  for (var i = 0; i <command.length; i++){
-  if (command == f){
-    moveForward(rover)
-  } else if (command == r) {
-    turnRight(rover);
-  } else if (command == l) {
-    turnLeft(rover);
-  } else {
-     return commands(rover,command)
+function moveBackword(rover, grid){
+  console.log("moveBackword was called!");
+  switch(rover.direction) {
+    case "N": rover.y++;
+    break;
+    case "E": rover.x--;
+    break;
+    case "S": rover.y--;
+    break;
+    case "W": rover.x++;
+    break;
+  }    
+  console.log("Move backword was called. Rover is now facing: [' + rover.x + ',' + rover.y']");
+}
+
+function commandList(rover, command) {
+  for (var i = 0; i < command.length; i++){
+    var command = command[i];
+    switch(command){
+      case "f": moveForward(rover);
+      break;
+      case "r": turnRight(rover);
+      break;
+      case "l": turnLeft(rover);
+      break;
+      case "b": moveBackword(rover);
+      break;
+    }
   }
-  }
+  console.log("Position: Rover is now facing: [' + rover.x + ',' + rover.y']");
 }
